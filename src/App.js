@@ -1,11 +1,15 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Header from './component/Header/Header';
+import ToDo from './component/ToDo/ToDo';
 
 function App() {
   return (
     <div className="App">
-       <h1 className="text-3xl font-bold text-green-500 underline">
-      Hello world!
-    </h1>
+      <Header></Header>
+      <Routes>
+        <Route path='/todo' element={<ToDo></ToDo>}></Route>
+      </Routes>
     </div>
   );
 }
