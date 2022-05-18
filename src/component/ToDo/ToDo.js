@@ -42,11 +42,11 @@ const ToDo = () => {
                     <input
                         {...register("task", { required: true })}
                         type="text" placeholder="Your Task Name"
-                        class="input input-bordered w-full text-lg mt-4" />
+                        className="input input-bordered w-full text-lg mt-4" />
                     <input
                         {...register("taskDescription", { required: true })}
                         type="text" placeholder="Your Task Description"
-                        class="input input-bordered w-full text-lg mt-5" />
+                        className="input input-bordered w-full text-lg mt-5" />
 
                     <input className='btn mt-5' type="submit" value='Add Task' />
                 </form>

@@ -12,11 +12,11 @@ const Login = () => {
                 <input
                     {...register("email", { required: true })}
                     type="email" placeholder="Your Email"
-                    class="input input-bordered w-full text-lg mt-4" />
+                    className="input input-bordered w-full text-lg mt-4" />
                 <input
                     {...register("password", { required: true })}
                     type="password" placeholder="Your Password"
-                    class="input input-bordered w-full text-lg mt-5" />
+                    className="input input-bordered w-full text-lg mt-5" />
 
                 <input className='btn btn-primary text-white my-5' type="submit" value='Login' />
                 <p className='text-accent'>New to To Do Task? <Link className='text-secondary' to='/signup'>Create new account</Link></p>

@@ -12,15 +12,15 @@ const SignUp = () => {
                 <input
                     {...register("name", { required: true })}
                     type="text" placeholder="Your Name"
-                    class="input input-bordered w-full text-lg mt-4" />
+                    className="input input-bordered w-full text-lg mt-4" />
                 <input
                     {...register("email", { required: true })}
                     type="email" placeholder="Your Email"
-                    class="input input-bordered w-full text-lg mt-5" />
+                    className="input input-bordered w-full text-lg mt-5" />
                 <input
                     {...register("password", { required: true, minLength:6 })}
                     type="password" placeholder="Your Password"
-                    class="input input-bordered w-full text-lg my-5" />
+                    className="input input-bordered w-full text-lg my-5" />
 
                 <input className='btn mt-5 btn-primary text-white' type="submit" value='Sign Up' />
                 <p>Already have an account? <Link className='text-secondary' to='/login'>Please Login</Link></p>

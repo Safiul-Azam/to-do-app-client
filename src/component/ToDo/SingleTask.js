@@ -3,8 +3,14 @@ import React from 'react';
 const SingleTask = ({todoTask,index,refetch}) => {
     const {task, taskDescription,_id} = todoTask
 
-    const handleDelete = () =>{
-        
+    const handleDelete = id =>{
+        fetch(`http://localhost:5002/todo/${id}`,{
+            method:"DELETE"
+        })
+        .then(res =>res.json())
+        .then(data => {
+            console.log(data)
+        })
     }
     refetch()
     return (
@@ -13,8 +19,8 @@ const SingleTask = ({todoTask,index,refetch}) => {
                 <td>{task}</td>
                 <td>date</td>
                 <td>{taskDescription}</td>
-                <td><button class="btn btn-xs">Complete</button></td>
-                <td><button onClick={handleDelete} class="btn btn-xs">Delete</button></td>
+                <td><button className="btn btn-xs">Complete</button></td>
+                <td><button onClick={()=>handleDelete(_id)} className="btn btn-xs">Delete</button></td>
             </tr>
 
     );
