@@ -9,9 +9,9 @@ module.exports = {
     themes: [
       {
         doctorAppointment: {
-          primary: "rgba(15, 207, 236, 1)",
-          secondary: "rgba(25, 211, 174, 1)",
-          accent: "rgba(58, 66, 86, 1)",
+          primary: "#795FCD",
+          secondary: "#76B4A0",
+          accent: "#516184",
           neutral: "#3d4451",
           "base-100": "#ffffff",
         },
