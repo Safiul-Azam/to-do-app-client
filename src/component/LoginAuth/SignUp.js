@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 
 import auth from '../../firebase.init';
 import Loading from '../Loading/Loading';
@@ -17,17 +17,18 @@ const SignUp = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+    const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
-    if(user){
+    if(user || googleUser){
         navigate(from, {replace:true})
         console.log(user)
     }
-    if(loading || updating){
+    if(loading || updating || googleLoading){
         return <Loading></Loading>
     }
     let errorMessage;
-    if(error || UpdateError){
-        errorMessage = <p className='text-error'>{error.message || UpdateError.message}</p>
+    if(error || UpdateError || googleError){
+        errorMessage = <p className='text-error'>{error.message || UpdateError.message || googleError.message}</p>
     }
 
 
@@ -58,6 +59,7 @@ const SignUp = () => {
                 <input className='btn mt-5 btn-primary text-white' type="submit" value='Sign Up' />
                 <p>Already have an account? <Link className='text-secondary' to='/login'>Please Login</Link></p>
             </form>
+            <button onClick={()=>signInWithGoogle()} className='btn btn-secondary w-3/2 mt-4'>Google Sign In</button>
         </div>
     );
 };

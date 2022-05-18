@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
@@ -16,16 +16,17 @@ const Login = () => {
         loading,
         error,
       ] = useSignInWithEmailAndPassword(auth);
-      if(user){
+      const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+      if(user || googleUser){
          navigate(from, {replace:true})
         console.log(user)
     }
-    if(loading){
+    if(loading ||googleLoading){
         return <Loading></Loading>
     }
     let errorMessage;
-    if(error){
-        errorMessage = <p className='text-error'>{error.message}</p>
+    if(error || googleError){
+        errorMessage = <p className='text-error'>{error?.message || googleError?.message}</p>
     }
     const onSubmit = data => {
         signInWithEmailAndPassword(data.email, data.password)
@@ -45,8 +46,8 @@ const Login = () => {
                 {errorMessage}
                 <input className='btn btn-primary text-white my-5' type="submit" value='Login' />
                 <p className='text-accent'>New to To Do Task? <Link className='text-secondary' to='/signup'>Create new account</Link></p>
-             
             </form>
+              <button onClick={()=>signInWithGoogle()} className='btn btn-secondary mt-4 w-3/2'>Google Sign In</button>
         </div>
     );
 };
