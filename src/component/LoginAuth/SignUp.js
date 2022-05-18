@@ -1,10 +1,41 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+
+import auth from '../../firebase.init';
+import Loading from '../Loading/Loading';
 
 const SignUp = () => {
+    const navigate= useNavigate(auth)
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+    const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
+    if(user){
+        navigate('/todo')
+        console.log(user)
+    }
+    if(loading || updating){
+        return <Loading></Loading>
+    }
+    let errorMessage;
+    if(error || UpdateError){
+        errorMessage = <p className='text-error'>{error.message || UpdateError.message}</p>
+    }
+
+
+    const onSubmit = async data => {
+        const name = data.name
+        await createUserWithEmailAndPassword(data.email, data.password)
+        await updateProfile({ displayName:name });
+        alert('Updated profile');
+        console.log(data)
+    };
     return (
         <div className='lg:w-1/2 w-full md:w-1/3 p-8 mx-auto my-14 mt-24 shadow-lg'>
             <h3>Sing Up</h3>
@@ -18,10 +49,10 @@ const SignUp = () => {
                     type="email" placeholder="Your Email"
                     className="input input-bordered w-full text-lg mt-5" />
                 <input
-                    {...register("password", { required: true, minLength:6 })}
+                    {...register("password", { required: true, minLength: 6 })}
                     type="password" placeholder="Your Password"
                     className="input input-bordered w-full text-lg my-5" />
-
+                    {errorMessage}
                 <input className='btn mt-5 btn-primary text-white' type="submit" value='Sign Up' />
                 <p>Already have an account? <Link className='text-secondary' to='/login'>Please Login</Link></p>
             </form>
