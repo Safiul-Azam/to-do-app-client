@@ -17,7 +17,9 @@ const Header = () => {
                         <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li><Link className='text-lg' to='/todo'>To-do</Link></li>
                          { 
-                         user ? <button onClick={()=>signOut(auth)} className='btn btn-ghost'>SignOut</button>: <li><Link className='text-lg' to='/login'>Login</Link></li>
+                         user ?
+                          <button onClick={()=>signOut(auth)} className='btn btn-ghost'>SignOut</button>
+                         : <li><Link className='text-lg' to='/login'>Login</Link></li>
                          }
                         </ul>
                     </div>
@@ -25,7 +27,11 @@ const Header = () => {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
                         <li><Link className='text-lg' to='/todo'>To-do</Link></li>
-                        <li><Link className='text-lg' to='/login'>Login</Link></li>
+                        { 
+                         user ?
+                          <button onClick={()=>signOut(auth)} className='btn btn-ghost'>SignOut</button>
+                         : <li><Link className='text-lg' to='/login'>Login</Link></li>
+                         }
                     </ul>
                 </div>
             </div>

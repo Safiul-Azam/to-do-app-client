@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 
 import auth from '../../firebase.init';
@@ -8,6 +8,8 @@ import Loading from '../Loading/Loading';
 
 const SignUp = () => {
     const navigate= useNavigate(auth)
+    const location = useLocation()
+    const from = location?.status?.from?.pathname || '/'
     const { register, handleSubmit } = useForm();
     const [
         createUserWithEmailAndPassword,
@@ -17,7 +19,7 @@ const SignUp = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
     const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
     if(user){
-        navigate('/todo')
+        navigate(from, {replace:true})
         console.log(user)
     }
     if(loading || updating){

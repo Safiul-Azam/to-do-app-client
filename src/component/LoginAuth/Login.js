@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../Loading/Loading';
 
 const Login = () => {
     const navigate = useNavigate()
+    const location = useLocation()
+    const from = location?.status?.from?.pathname || '/'
     const { register, handleSubmit } = useForm();
     const [
         signInWithEmailAndPassword,
@@ -15,7 +17,7 @@ const Login = () => {
         error,
       ] = useSignInWithEmailAndPassword(auth);
       if(user){
-        navigate('/todo')
+         navigate(from, {replace:true})
         console.log(user)
     }
     if(loading){
