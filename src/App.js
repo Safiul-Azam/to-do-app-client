@@ -11,7 +11,11 @@ function App() {
     <div className="App">
       <Header></Header>
       <Routes>
-        <Route path='/' element={<ToDo></ToDo>}></Route>
+        <Route path='/' element={
+        <RequireAuth>
+          <ToDo></ToDo>
+          </RequireAuth>
+        }></Route>
         <Route path='/todo' element={
         <RequireAuth>
           <ToDo></ToDo>
