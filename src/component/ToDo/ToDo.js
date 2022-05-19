@@ -13,7 +13,7 @@ const ToDo = () => {
             taskDescription: data.taskDescription
         }
 
-        fetch('http://localhost:5002/todo', {
+        fetch('https://guarded-badlands-88424.herokuapp.com/todo', {
             method: 'POST',
             headers: {
                 "content-type": "application/json"

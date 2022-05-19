@@ -3,7 +3,7 @@ import Loading from '../Loading/Loading';
 import SingleTask from './SingleTask';
 
 const ShowTask = () => {
-    const { data: todoTasks, isLoading, refetch } = useQuery('todo', () => fetch('http://localhost:5002/todo').then(res => res.json()))
+    const { data: todoTasks, isLoading, refetch } = useQuery('todo', () => fetch('https://guarded-badlands-88424.herokuapp.com/todo').then(res => res.json()))
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -15,7 +15,6 @@ const ShowTask = () => {
                         <tr>
                             <th></th>
                             <th>Task Name</th>
-                            <th>date</th>
                             <th>Task Description</th>
                             <th>Status</th>
                             <th>Delete</th>

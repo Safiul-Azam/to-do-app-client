@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const SingleTask = ({todoTask,index,refetch}) => {
+    const [complete,setComplete]=useState(false)
     const {task, taskDescription,_id} = todoTask
 
     const handleDelete = id =>{
-        fetch(`http://localhost:5002/todo/${id}`,{
+        fetch(`https://guarded-badlands-88424.herokuapp.com/todo/${id}`,{
             method:"DELETE"
         })
         .then(res =>res.json())
@@ -15,11 +16,10 @@ const SingleTask = ({todoTask,index,refetch}) => {
     refetch()
     return (
             <tr>
-                <th>{index}</th>
-                <td>{task}</td>
-                <td>date</td>
-                <td>{taskDescription}</td>
-                <td><button className="btn btn-xs btn-success text-white">Complete</button></td>
+                <th>{index + 1}</th>
+                <td className={complete ? '': 'line-through'}>{task}</td>
+                <td className={complete ? '': 'line-through'}>{taskDescription}</td>
+                <td><button onClick={()=> setComplete(!complete)} className="btn btn-xs btn-success text-white">Complete</button></td>
                 <td><button onClick={()=>handleDelete(_id)} className="btn btn-xs btn-error text-white">Delete</button></td>
             </tr>
 

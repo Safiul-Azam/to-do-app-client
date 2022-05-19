@@ -9,7 +9,7 @@ import Loading from '../Loading/Loading';
 const SignUp = () => {
     const navigate= useNavigate(auth)
     const location = useLocation()
-    const from = location?.status?.from?.pathname || '/'
+    const from =  location.state?.from?.pathname || "/";
     const { register, handleSubmit } = useForm();
     const [
         createUserWithEmailAndPassword,
@@ -21,7 +21,6 @@ const SignUp = () => {
     const [updateProfile, updating, UpdateError] = useUpdateProfile(auth);
     if(user || googleUser){
         navigate(from, {replace:true})
-        console.log(user)
     }
     if(loading || updating || googleLoading){
         return <Loading></Loading>
